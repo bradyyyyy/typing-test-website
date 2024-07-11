@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const typedText = document.getElementById('typed-text');
-    const redirectButton = document.getElementById('redirect-button');
     let typingStarted = false;
-    let initialTime, endingTime;
+    let initialTime = 0
+    let endingTime = 0;
+    let totalChars = 0;
 
     if (typedText) {
         typedText.addEventListener('input', (event) => {
@@ -23,24 +24,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 showResults();
             }
         });
+    }
 
+    if (typedText) {
         typedText.addEventListener('keydown', (event) => {
-            console.log('Key: ' + event.key);
+            const ignoredKeys = [
+                'Backspace', 'Shift', 'Control', 'Alt', 'Meta', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight', 'Escape', 'CapsLock', 'Tab', 'Enter', 'Delete'
+            ];
+
+            if (!ignoredKeys.includes(event.key)) {
+                totalChars += 1;
+                console.log('Total chars typed: ' +totalChars);
+                localStorage.setItem('totalChars', totalChars);
+            }
         });
     }
 
     function calculateTime() {
-        console.log('Testing');
+        let totalTime = endingTime - initialTime;
+        localStorage.setItem('totalTime', totalTime);
     }
 
     function showResults() {
-        location.replace('result.html');
         calculateTime();
-    }
-
-    if (redirectButton) {
-        redirectButton.addEventListener('click', () => {
-            location.replace('index.html');
-        });
+        location.replace('result.html');
     }
 });
