@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const typedText = document.getElementById('typed-text');
+    const originalText = document.getElementById('text-to-type');
     let typingStarted = false;
     let initialTime = 0
     let endingTime = 0;
     let totalChars = 0;
+    let correctKeystrokes = 0;
+    let incorrectKeystrokes = 0;
 
     if (typedText) {
+
         typedText.addEventListener('input', (event) => {
 
             if (!typingStarted) {
@@ -21,6 +25,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (currentLength == maxLength) {
                 endingTime = new Date();
                 console.log('Typing finished at: ' + endingTime);
+                calculateAccuracy();
                 showResults();
             }
         });
@@ -38,7 +43,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log('Total chars typed: ' +totalChars);
                 localStorage.setItem('totalChars', totalChars);
             }
+
+            let currentPosition = document.getElementById('typed-text').innerText.length;
+
+            if (!ignoredKeys.includes(event.key)) {
+                if (event.key == originalText.innerText[currentPosition]) {
+                    correctKeystrokes++;
+                }
+                else {
+                    incorrectKeystrokes++;
+                }
+            console.log('Character typed: ' +event.key + ' Character to compare to: ' +originalText.innerText[currentPosition]);
+            console.log('Correct Keystrokes: ' +correctKeystrokes + ' Incorrect Keystrokes: ' +incorrectKeystrokes);
+            }
         });
+
+    calculateAccuracy();
+    }
+    
+    function calculateAccuracy() {
+        let accuracy = (correctKeystrokes / (correctKeystrokes + incorrectKeystrokes) * 100);
+        localStorage.setItem('accuracy', accuracy);
     }
 
     function calculateTime() {
