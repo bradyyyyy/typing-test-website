@@ -8,7 +8,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let correctKeystrokes = 0;
     let incorrectKeystrokes = 0;
 
-    if (typedText) {
+    async function getText() {
+        const url = "https://random-word-api.vercel.app/api?words=25";
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            const words = data.join (' ');
+
+            originalText.innerText = words;
+        }
+
+        catch (error) {
+            console.error('Error fetching words:', error);
+            originalText.innerText = 'The quick brown fox jumped over the lazy moon.';
+        }
+    }
+
+    getText();
+
+    if (typedText) { 
 
         typedText.addEventListener('input', (event) => {
 
