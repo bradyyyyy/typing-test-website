@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Results</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results</title>
+  <link rel="stylesheet" href="result.css" />
 </head>
 <body>
-    <div class="result-page">
-        <h1>Congratulations!</h1>
-        <p>You have completed the typing test.</p>
-        <button id="redirect-button">Return</button>
-    </div>
-    <script src="results.js"></script>
+  <div class="result-card">
+    <h1>Congratulations!</h1>
+    <p>You have completed the typing test.</p>
+    <p id="wpm" class="result"></p>
+    <p id="accuracy" class="result"></p>
+    <p id="adjustedWPM" class="result"></p>
+    <button id="redirect-button">Return</button>
+  </div>
+  <script src="results.js"></script>
 </body>
 </html>

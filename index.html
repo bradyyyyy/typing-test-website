@@ -5,12 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Typing Test</title>
+    <style>
+        #typed-text {
+            color: transparent;
+            caret-color: white;
+        }
+    </style>
 </head>
 <body>
    <div class="typing-test">
     <div class="text-container">
         <p id="text-to-type"> The quick brown fox jumped over the lazy moon. </p>
-        <p id="typed-text" contenteditable="true"></p>
+        <input
+            type="text"
+            id="hidden-input"
+            autofocus
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+        />
     </div>
    </div>
    <script src="script.js"></script>
